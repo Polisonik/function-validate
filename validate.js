@@ -3,8 +3,10 @@
 	var inputHashtag = form.querySelector('.upload-form-hashtags');
 	var hashtags = inputHashtag.value.split(' ');
 	
-	isFirstSymbol(hashtags);
-	isCountHashtegs(hashtags);
+	isFirstSymbol(event, hashtags);
+	isCountHashtegs(event, mhashtags);
+	isMaxLength(event, hashtags);
+	isEqualHashtag(event, hashtags);
 	
 	// Проверка первого симовла хештега на равенстов '#'
 	function isFirstSymbol(event, hashtags) {
@@ -15,7 +17,7 @@
 			if(history[i][0] != '#') {
 				event.preventDefault();
 				inputHashtag.style.borderColor = 'red';
-				showError() //хэш-тег начинается с символа `#` (решётка) и состоит из одного слова;
+				return 'хэш-тег начинается с символа `#` (решётка) и состоит из одного слова';
 			}
 		}
 	}
@@ -28,10 +30,10 @@
 		if (hashtags.length > hashtagsCount) {
 		  event.preventDefault();
 			inputHashtag.style.borderColor = 'red';
-			showError() // нельзя указать больше пяти хэш-тегов;
+			return 'нельзя указать больше пяти хэш-тегов';
 	  }
   }
-	
+	// Проверка длины одного хештега
 	function isMaxLength(event, hashtags) {
 		var maxLength = 20;
 		
@@ -39,24 +41,21 @@
 		  if (hashtags[i].length > maxLength ) {
 			  event.preventDefault();
 				inputHashtag.style.borderColor = "red";
-				showError(); //вывести ошибку
+				return 'максимальная длина одного хэш-тега 20 символов';
 	    }  
    	}
 	}
-				for(var i = 0; i < hashtags.length; i++) {
-					var item = hashtags[i];
-          for (var j = i+1; j < hashtags.length; j++) {
-	          if (item === hashtags[j]) {
-              event.preventDefault();
-							inputHashtag.style.borderColor = "red";
-              inputHashtag.setCustomValidity("не должно быть повторяющихся хэш-тегов");
-            }
-				  }
-			  }	
-				
-              inputHashtag.setCustomValidity("максимальная длина одного хэш-тега 20 символов");
-					}
-					
-				}
-      }
-		}
+	// Проверка на одинаковые хештеги
+	function isEqualHashtag(event, hashtags) {
+	  for(var i = 0; i < hashtags.length; i++) {
+		  var item = hashtags[i];
+      for (var j = i+1; j < hashtags.length; j++) {
+	      if (item === hashtags[j]) {
+          event.preventDefault();
+					inputHashtag.style.borderColor = "red";
+        return 'один и тот же хэш-тег не может быть использован дважды';
+        }
+			}
+		}				
+  }
+ })();
