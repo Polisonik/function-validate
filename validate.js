@@ -3,18 +3,18 @@
   var inputHashtag = form.querySelector('.upload-form-hashtags');
   var hashtags = inputHashtag.value.split(' ');
   
-	isEmptyHashtag(hashtags);
+  isEmptyHashtag(hashtags);
   isFirstSymbol(event, hashtags);
   isCountHashtegs(event, mhashtags);
   isMaxLength(event, hashtags);
   isEqualHashtag(event, hashtags);
 
 	// проверка,если хештеги отсутствуют
-	function isEmptyHashtag(hashtags) {
-		if (hashtags == '') { 
+  function isEmptyHashtag(hashtags) {
+    if (hashtags == '') { 
       return true; 
     } else return false;
-	}
+  }
   // Проверка первого симовла хештега на равенстов '#'
   function isFirstSymbolHashtag(event, hashtags) {
     for (var i = 0; i < hashtags.length; i++) {
